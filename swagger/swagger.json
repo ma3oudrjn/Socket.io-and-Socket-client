@@ -1,0 +1,105 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Message API",
+    "description": "API for retrieving messages"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3003"
+    }
+  ],
+  "paths": {
+    "/messages": {
+      "get": {
+        "summary": "Get all messages",
+        "description": "Retrieves a list of all messages",
+        "responses": {
+          "200": {
+            "description": "A list of messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Message"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/messages/get/{id}": {
+      "get": {
+        "summary": "Get messages by user ID",
+        "description": "Retrieves a list of messages for a specific user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of messages for the specified user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Message"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Message": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Message ID"
+          },
+          "userId": {
+            "type": "string",
+            "description": "User ID"
+          },
+          "text": {
+            "type": "string",
+            "description": "Message text"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Message creation time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Message update time"
+          }
+        }
+      }
+    }
+  }
+}
